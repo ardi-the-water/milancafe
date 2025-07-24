@@ -1,0 +1,578 @@
+/* ═══════════════════════════════════════════════════════════════ */
+/* منوی دیجیتال کافه - استایل‌های CSS */
+/* ═══════════════════════════════════════════════════════════════ */
+
+/* Universal Box Sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #27ae60;
+    --background-color: #f8f9fa;
+    --card-background: #ffffff;
+    --text-color: #333333;
+    --light-text-color: #7f8c8d;
+}
+
+body {
+    font-family: sans-serif; /* این توسط جاوااسکریپت بازنویسی می‌شود */
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    overflow-x: hidden; /* جلوگیری از اسکرول افقی ناخواسته */
+    font-size: 15px; /* کاهش اندازه فونت پایه */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: var(--primary-text-color);
+    text-align: center;
+    padding: 1rem 0;
+    transition: background-color 0.3s;
+}
+
+#header-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+#logo-container {
+    margin-bottom: 0;
+}
+
+#cafe-logo {
+    max-height: 100px;
+    max-width: 220px;
+    object-fit: contain;
+}
+
+#cafe-name {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: right;
+}
+
+#welcome-message {
+    margin: 0;
+    font-size: 1rem; /* کاهش اندازه */
+    opacity: 0.9;
+}
+
+/* استایل بخش جستجو */
+#search-container {
+    padding: 1rem;
+    background-color: #fff;
+    border-bottom: 1px solid #dee2e6;
+}
+
+#search-input {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    display: block;
+    padding: 10px 20px;
+    font-family: inherit;
+    font-size: 1rem;
+    border-radius: 25px;
+    border: 1px solid #ced4da;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    -webkit-appearance: none; /* برای حذف استایل پیش‌فرض در iOS */
+    appearance: none; /* خاصیت استاندارد برای سازگاری */
+}
+
+#search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* استایل بخش کنترل‌ها (فیلتر و حالت نمایش) */
+#controls-container {
+    padding: 1rem;
+    background-color: #fff;
+    border-bottom: 1px solid #dee2e6;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+}
+
+#controls-inner-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 900px;
+}
+
+#category-filters-wrapper {
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    flex-grow: 1;
+    /* حذف پدینگ و مارجین پیچیده قبلی */
+}
+
+#category-filters-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+#category-filters {
+    display: flex;
+    justify-content: flex-start; /* برای شروع از ابتدا در حالت اسکرول */
+    padding: 0.5rem 0; /* کمی پدینگ عمودی */
+    gap: 0.5rem; /* فاصله بین دکمه‌ها */
+}
+
+#view-mode-buttons {
+    display: flex;
+    gap: 0.5rem;
+    padding-right: 1rem; /* فاصله از فیلترها */
+}
+
+.view-btn {
+    background-color: var(--background-color);
+    border: none;
+    border-radius: 12px;
+    padding: 0.6rem 0.9rem;
+    cursor: pointer;
+    color: var(--light-text-color);
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.view-btn:hover {
+    background-color: #e9ecef;
+}
+
+.view-btn.active {
+    background-color: var(--primary-color);
+    color: var(--primary-text-color);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.filter-btn {
+    background-color: #fff;
+    color: #495057;
+    border: 1px solid #ced4da;
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    font-family: inherit; /* از فونت body ارث‌بری می‌کند */
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.filter-btn:hover {
+    border-color: var(--primary-color);
+    background-color: var(--background-color);
+}
+
+.filter-btn.active {
+    background-color: var(--primary-color);
+    color: var(--primary-text-color);
+    border-color: var(--primary-color);
+    font-weight: bold;
+}
+
+.filter-btn.active:hover {
+    background-color: var(--primary-hover-color);
+    border-color: var(--primary-hover-color);
+}
+
+/* استایل‌های پایه برای هر دو کانتینر */
+#grid-container, #list-container {
+    margin: 0 auto;
+    padding: 1.5rem;
+    flex-grow: 1;
+    transition: opacity 0.2s ease-in-out; /* انیمیشن امن برای fade */
+}
+
+/* استایل کانتینر گرید */
+#grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+}
+
+/* استایل کانتینر لیست */
+#list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 900px;
+}
+
+/* استایل آیتم‌ها در حالت لیست */
+#list-container .menu-item {
+    flex-direction: row;
+    width: 100%;
+}
+
+#list-container .item-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    flex-shrink: 0;
+    object-fit: cover; /* برای حالت لیست، تصویر کادر را پر کند */
+    padding: 0; /* حذف پدینگ در حالت لیست */
+}
+
+#list-container .item-details {
+    text-align: right;
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#list-container .item-name {
+    font-size: 1.1rem;
+}
+
+#list-container .item-price {
+    font-size: 1rem;
+}
+
+#list-container .item-category-tag {
+    display: none;
+}
+
+/* .category-title {
+    display: none;
+} */
+
+.menu-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    /* Glassmorphism Effect */
+    background: rgba(255, 255, 255, 0.5); /* شفافیت بیشتر */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 18px; /* گردی بیشتر */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* سایه نرم‌تر */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.4s ease; /* انیمیشن بهینه‌تر با fade */
+    will-change: transform, box-shadow, opacity; /* اشاره به مرورگر برای بهینه‌سازی */
+}
+
+
+/* انیمیشن برای آیتم‌های جدید در اسکرول بی‌نهایت */
+.menu-item.new-item-fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* استایل برای برچسب ویژه */
+.item-badge {
+    position: absolute;
+    top: 10px;
+    left: -30px; /* برای ایجاد افکت چرخیده */
+    background-color: var(--secondary-color);
+    color: var(--primary-text-color, #fff);
+    padding: 5px 30px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 1;
+    transform: rotate(-45deg);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+#list-container .item-badge {
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    border-radius: 0 8px 8px 0;
+    padding: 8px 10px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    left: -1px; /* برای چسبیدن به لبه */
+}
+
+.menu-item:hover {
+    transform: translateY(-5px) scale(1.01); /* کمی بزرگنمایی و حرکت بیشتر */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); /* سایه واضح‌تر در هاور */
+}
+
+.item-image {
+    width: 100%;
+    height: 200px;
+    object-fit: contain; /* برای حالت گرید، کل تصویر نمایش داده شود */
+    background-color: #f0f0f0; /* یک پس‌زمینه خنثی برای فضای خالی */
+    padding: 0.5rem; /* کمی فاصله از لبه‌ها */
+}
+
+.item-details {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.item-name {
+    margin: 0 0 0.4rem 0;
+    font-size: 1.1rem; /* کاهش اندازه */
+    font-weight: 600; /* کمی نازک‌تر */
+    color: var(--text-color);
+}
+
+.item-description {
+    margin: 0.4rem 0;
+    font-size: 0.85rem; /* کاهش اندازه */
+    color: var(--light-text-color);
+    line-height: 1.5;
+}
+
+.item-price {
+    margin: 0.4rem 0 0 0;
+    font-size: 1rem; /* کاهش اندازه */
+    color: var(--secondary-color);
+    font-weight: 700;
+}
+
+.item-category-tag {
+    align-self: flex-start;
+    background-color: var(--background-color);
+    color: var(--light-text-color);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    margin-top: auto; /* این تگ را به پایین کارت می‌چسباند */
+}
+
+.loading {
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 3rem;
+    color: var(--light-text-color);
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    background-color: var(--primary-color);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+footer a {
+    color: var(--primary-text-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* --- دکمه رفتن به بالا --- */
+#scrollTopBtn {
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background-color: var(--primary-color);
+    color: var(--primary-text-color);
+    cursor: pointer;
+    border-radius: 50%;
+    width: 48px; /* اندازه کوچک‌تر */
+    height: 48px; /* اندازه کوچک‌تر */
+    font-size: 20px; /* آیکون بزرگ‌تر و واضح‌تر */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.4s ease-in-out; /* انیمیشن برای همه خصوصیات */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* استایل‌های اولیه برای انیمیشن ورود */
+    opacity: 0;
+    transform: translateY(20px);
+    visibility: hidden;
+}
+
+#scrollTopBtn.visible {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+}
+
+#scrollTopBtn:hover {
+    background-color: var(--primary-hover-color);
+    transform: translateY(-3px) scale(1.05); /* انیمیشن هاور */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+#scrollTopBtn:active {
+    transform: translateY(-1px) scale(1); /* انیمیشن کلیک */
+}
+
+/* کدهای واکنش‌گرا برای موبایل */
+@media (max-width: 768px) {
+    #controls-container {
+        padding: 0.75rem 1rem; /* بازگرداندن پدینگ برای زیبایی */
+        transition: transform 0.4s ease, opacity 0.4s ease;
+    }
+    #controls-container.hidden {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    #controls-inner-wrapper {
+        flex-direction: column;
+        width: 100%; /* اطمینان از گرفتن کل عرض */
+    }
+    #category-filters-wrapper {
+        width: 100%; /* اطمینان از گرفتن کل عرض */
+    }
+    #category-filters {
+        padding-bottom: 0.75rem;
+        justify-content: flex-start;
+    }
+    #view-mode-buttons {
+        padding-right: 0;
+    }
+    #menu-container {
+        padding: 1rem;
+        gap: 1rem;
+        /* حالت تک ستونی برای موبایل */
+        grid-template-columns: 1fr;
+    }
+
+    .filter-btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+        flex-shrink: 0; /* جلوگیری از کوچک شدن دکمه‌ها */
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════ */
+/* استایل دکمه‌های شناور شبکه‌های اجتماعی (FAB) */
+/* ═══════════════════════════════════════════════════════════════ */
+
+#social-fab-container {
+    position: fixed;
+    bottom: 25px; /* هم‌سطح با دکمه اسکرول */
+    right: 25px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+.fab-main-button {
+    background-color: var(--primary-color);
+    color: var(--primary-text-color, #fff);
+    width: 48px; /* اندازه کوچک‌تر و هماهنگ با دکمه اسکرول */
+    height: 48px; /* اندازه کوچک‌تر و هماهنگ با دکمه اسکرول */
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px; /* اندازه فونت متناسب */
+    transition: all 0.3s ease; /* انیمیشن برای همه خصوصیات */
+    z-index: 2; /* بالاتر از آیکون‌ها */
+}
+
+.fab-main-button:hover {
+    background-color: var(--primary-hover-color);
+    transform: scale(1.1);
+}
+
+.fab-main-button span {
+    transition: transform 0.3s ease;
+}
+
+#social-fab-container.open .fab-main-button span {
+    transform: rotate(45deg);
+}
+
+.social-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px; /* افزایش فاصله از دکمه اصلی */
+    transition: all 0.3s ease;
+}
+
+.social-icons a {
+    background-color: #fff;
+    width: 42px; /* اندازه کوچک‌تر */
+    height: 42px; /* اندازه کوچک‌تر */
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 12px; /* فاصله بین آیکون‌ها */
+    text-decoration: none;
+    color: #333;
+    font-size: 20px; /* اندازه فونت متناسب */
+    transform: scale(0); /* در حالت بسته مخفی */
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+#social-fab-container.open .social-icons a {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* انیمیشن تاخیری برای هر آیکون */
+#social-fab-container.open .social-icons a:nth-child(1) { transition-delay: 0.1s; }
+#social-fab-container.open .social-icons a:nth-child(2) { transition-delay: 0.2s; }
+#social-fab-container.open .social-icons a:nth-child(3) { transition-delay: 0.3s; }
+
+.social-icons a:hover {
+    transform: scale(1.15);
+    color: var(--primary-color);
+}
+
+/* استایل برای آیکون‌های Font Awesome (اگر استفاده شود) */
+.social-icons a i {
+    transition: transform 0.2s;
+}
+
+.social-icons a:hover i {
+    transform: scale(1.2);
+}
+
+/* رنگ‌های خاص برای هر شبکه اجتماعی */
+.social-icon-instagram:hover { color: #E1306C; }
+.social-icon-telegram:hover { color: #0088cc; }
+.social-icon-whatsapp:hover { color: #25D366; }
+
+@media (max-width: 768px) {
+    #social-fab-container {
+        right: 20px;
+        bottom: 20px;
+    }
+    #scrollTopBtn {
+        left: 20px;
+        bottom: 20px;
+    }
+}

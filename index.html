@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منوی دیجیتال کافه</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="config.js"></script>
+</head>
+<body>
+    <header>
+        <div id="header-content">
+            <div id="logo-container"></div>
+            <h1 id="cafe-name">نام کافه یا رستوران شما</h1>
+            <p id="welcome-message">خوش آمدید!</p>
+        </div>
+    </header>
+
+    <div id="search-container">
+        <input type="text" id="search-input" placeholder="جستجو در منو...">
+    </div>
+
+    <div id="controls-container">
+        <div id="controls-inner-wrapper">
+            <div id="category-filters-wrapper">
+                <div id="category-filters"></div>
+            </div>
+            <div id="view-mode-buttons">
+                <button id="grid-view-btn" class="view-btn" aria-label="نمایش شبکه‌ای"><i class="fas fa-th-large"></i></button>
+                <button id="list-view-btn" class="view-btn active" aria-label="نمایش لیستی"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <main id="menu-wrapper">
+        <div id="grid-container" style="display: none;">
+            <!-- آیتم‌های گرید -->
+        </div>
+        <div id="list-container">
+            <!-- آیتم‌های لیست -->
+        </div>
+    </main>
+
+    <footer>
+        <p id="developer-credit">طراحی و توسعه توسط علی خداکرمی</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <!-- دکمه‌های شبکه‌های اجتماعی -->
+    <div id="social-fab-container">
+        <div class="social-icons">
+            <!-- آیکون‌ها به صورت پویا در اینجا اضافه می‌شوند -->
+        </div>
+        <button class="fab-main-button">
+            <span>+</span>
+        </button>
+    </div>
+
+    <button id="scrollTopBtn" title="برو به بالا">▲</button>
+</body>
+</html>
