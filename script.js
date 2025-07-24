@@ -122,6 +122,26 @@ function getContrastYIQ(hexcolor){
     return (yiq >= 128) ? '#000000' : '#ffffff';
 }
 
+// تابع برای راه‌اندازی Intersection Observer برای بارگذاری تنبل تصاویر
+function initializeImageObserver() {
+    const options = {
+        root: null, // مشاهده نسبت به کل صفحه
+        rootMargin: '0px 0px 200px 0px', // شروع بارگذاری ۲۰۰ پیکسل قبل از رسیدن به تصویر
+        threshold: 0.01 // به محض دیده شدن ۱٪ از تصویر
+    };
+
+    imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src; // جایگزینی src اصلی
+                img.removeAttribute('data-src'); // حذف اتریبیوت data-src
+                observer.unobserve(img); // توقف مشاهده این تصویر
+            }
+        });
+    }, options);
+}
+
 // تابع اصلی برای شروع عملیات
 async function initializeMenu() {
     // اعمال تنظیمات از config
@@ -284,7 +304,7 @@ function filterAndDisplayMenu() {
     displayMenu(true);
 }
 
-// تابع برای نمایش آیتم‌های منو در صفحه (با پشتیبانی از بارگذاری تدریجی)
+// تابع برای نمایش آیتم‌های منو در صفحه (با پشتیبانی از بارگذاری تدریجی و بارگذاری تنبل تصاویر)
 function displayMenu(isInitialLoad = false) {
     const container = (currentView === 'grid') ? gridContainer : listContainer;
 
@@ -316,7 +336,8 @@ function displayMenu(isInitialLoad = false) {
         
         let itemHTML = '';
         if (CAFE_CONFIG.showImages && item.ImageURL) {
-            itemHTML += `<img src="${item.ImageURL}" alt="${item.Name}" class="item-image" loading="lazy" onerror="this.style.display='none'">`;
+            // بهینه‌سازی: استفاده از data-src برای بارگذاری تنبل
+            itemHTML += `<img data-src="${item.ImageURL}" alt="${item.Name}" class="item-image" loading="lazy" onerror="this.style.display='none'">`;
         }
         itemHTML += '<div class="item-details">';
         itemHTML += `<h3 class="item-name">${item.Name}</h3>`;
@@ -337,6 +358,16 @@ function displayMenu(isInitialLoad = false) {
     });
 
     container.appendChild(fragment);
+    
+    // بهینه‌سازی: مشاهده تصاویر جدید برای بارگذاری تنبل
+    const newItemsJustAdded = container.querySelectorAll('.new-item-fade-in');
+    newItemsJustAdded.forEach(item => {
+        const img = item.querySelector('img[data-src]');
+        if (img && imageObserver) {
+            imageObserver.observe(img);
+        }
+    });
+
     currentDisplayIndex += itemsToLoad.length;
     
     // انیمیشن برای آیتم‌های جدید
@@ -482,6 +513,7 @@ scrollTopBtn.addEventListener('click', () => {
     }
 
 // اجرای برنامه
+initializeImageObserver(); // راه‌اندازی مشاهده‌گر تصویر
 initializeMenu();
 setupSocialButtons(); // فراخوانی تابع جدید
 
